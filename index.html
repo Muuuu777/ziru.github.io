@@ -1,71 +1,382 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>子儒宝宝的个人主页</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Helvetica Neue", sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f0e9">
+  <meta name="description" content="Ziru 的 AI 产品实验室：把模糊的好奇心，变成可以被使用、被验证的小产品。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ziru — AI Product Explorer">
+  <meta property="og:description" content="把模糊的好奇心，变成可以被使用、被验证的小产品。">
+  <meta property="og:url" content="https://muuuu777.github.io/ziru.github.io/">
+  <meta property="og:image" content="https://muuuu777.github.io/ziru.github.io/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ziru — AI Product Explorer">
+  <meta name="twitter:description" content="把模糊的好奇心，变成可以被使用、被验证的小产品。">
+  <meta name="twitter:image" content="https://muuuu777.github.io/ziru.github.io/og.png">
+  <title>Ziru — AI Product Explorer</title>
+  <style>
+    :root {
+      --paper: #f2f0e9;
+      --ink: #121212;
+      --muted: #6c6a63;
+      --line: rgba(18, 18, 18, .18);
+      --acid: #ff5c35;
+      --blue: #b9cff8;
+      --max: 1240px;
+      --pad: clamp(20px, 4vw, 64px);
+    }
 
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            width: 420px;
-            text-align: center;
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(600px circle at var(--x, 80%) var(--y, 10%), rgba(255, 92, 53, .1), transparent 60%),
+        var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        h1 {
-            margin-bottom: 10px;
-        }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { color: var(--paper); background: var(--ink); }
 
-        p {
-            color: #555;
-        }
+    .shell { width: min(100%, var(--max)); margin: 0 auto; padding-inline: var(--pad); }
+    .nav {
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .mark { display: flex; align-items: baseline; gap: 8px; font-weight: 850; letter-spacing: -.04em; font-size: 22px; }
+    .mark small { color: var(--muted); font-size: 10px; letter-spacing: .12em; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #33a45e;
+      box-shadow: 0 0 0 5px rgba(51, 164, 94, .12);
+    }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+    .hero {
+      min-height: calc(100svh - 92px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr);
+      gap: clamp(32px, 6vw, 96px);
+      align-items: center;
+      padding-block: clamp(64px, 9vw, 132px);
+    }
+    .eyebrow {
+      margin: 0 0 22px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-family: "Iowan Old Style", "Baskerville", "Times New Roman", "Songti SC", serif;
+      font-size: clamp(56px, 8.5vw, 124px);
+      font-weight: 500;
+      letter-spacing: -.065em;
+      line-height: .88;
+    }
+    h1 em { color: var(--acid); font-weight: inherit; }
+    .hero-copy {
+      max-width: 660px;
+      margin: 36px 0 0;
+      font-size: clamp(18px, 2vw, 25px);
+      letter-spacing: -.02em;
+      line-height: 1.55;
+    }
+    .hero-copy span { color: var(--muted); }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 36px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .hero-link i { font-style: normal; transition: transform .25s ease; }
+    .hero-link:hover i { transform: translate(3px, 3px); }
 
-        li {
-            margin: 8px 0;
-        }
+    .orbit {
+      position: relative;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+    .orbit::before, .orbit::after {
+      content: "";
+      position: absolute;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+    .orbit::before { inset: 17%; }
+    .orbit::after { inset: 36%; background: var(--acid); border: 0; }
+    .orbit-word {
+      position: absolute;
+      z-index: 1;
+      width: 90px;
+      color: var(--paper);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      line-height: 1.4;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .orbit-note { position: absolute; font: 700 10px/1 monospace; letter-spacing: .08em; }
+    .orbit-note.a { top: 12%; left: 8%; }
+    .orbit-note.b { right: 4%; bottom: 22%; transform: rotate(90deg); }
 
-        .email {
-            margin-top: 20px;
-            padding: 10px;
-            background: #f0f4ff;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-    </style>
+    .section { padding-block: clamp(88px, 12vw, 168px); border-top: 1px solid var(--line); }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(160px, .45fr) minmax(0, 1.55fr);
+      gap: 32px;
+      align-items: start;
+    }
+    .index { font: 750 11px/1.4 monospace; letter-spacing: .08em; text-transform: uppercase; }
+    h2 {
+      margin: 0;
+      max-width: 920px;
+      font-family: "Iowan Old Style", "Baskerville", "Times New Roman", "Songti SC", serif;
+      font-size: clamp(38px, 5vw, 72px);
+      font-weight: 500;
+      letter-spacing: -.045em;
+      line-height: 1.08;
+    }
+    .statement { margin-top: 56px; margin-left: calc(22.5% + 16px); max-width: 680px; }
+    .statement p { margin: 0 0 20px; font-size: clamp(18px, 1.7vw, 23px); line-height: 1.7; }
+    .statement p:last-child { color: var(--muted); }
+
+    .now-card {
+      margin-top: 72px;
+      padding: clamp(28px, 5vw, 64px);
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 36px;
+      color: var(--paper);
+      background: var(--ink);
+      border-radius: 2px;
+    }
+    .now-label { color: var(--acid); font: 750 11px/1.4 monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .now-card blockquote { margin: 0; font-family: "Iowan Old Style", "Baskerville", "Songti SC", serif; font-size: clamp(30px, 4vw, 56px); letter-spacing: -.04em; line-height: 1.14; }
+    .now-card footer { margin-top: 28px; color: #aaa79e; font-size: 14px; }
+
+    .experiments { margin-top: 72px; border-top: 1px solid var(--line); }
+    .experiment {
+      display: grid;
+      grid-template-columns: 80px 1fr minmax(250px, .7fr) 84px;
+      gap: 28px;
+      align-items: baseline;
+      padding-block: 30px;
+      border-bottom: 1px solid var(--line);
+      transition: padding .25s ease, background .25s ease;
+    }
+    .experiment:hover { padding-inline: 18px; background: rgba(255,255,255,.28); }
+    .experiment-no { color: var(--muted); font: 700 11px monospace; }
+    .experiment h3 { margin: 0; font-size: clamp(22px, 2.3vw, 34px); letter-spacing: -.035em; }
+    .experiment p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .tag { justify-self: end; padding: 7px 10px; border: 1px solid var(--line); border-radius: 99px; font: 750 9px monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .tag.live { color: #257644; border-color: rgba(37, 118, 68, .3); background: rgba(51, 164, 94, .08); }
+
+    .principles {
+      margin-top: 70px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .principle { min-height: 280px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; background: var(--paper); }
+    .principle b { font-size: clamp(24px, 2.8vw, 39px); letter-spacing: -.045em; line-height: 1.08; }
+    .principle span { color: var(--muted); font-size: 13px; }
+    .principle:nth-child(2) { background: var(--blue); }
+    .principle:nth-child(3) { color: var(--paper); background: var(--acid); }
+    .principle:nth-child(3) span { color: rgba(242, 240, 233, .72); }
+
+    .timeline { margin-top: 68px; }
+    .event { display: grid; grid-template-columns: 140px 1fr; gap: 28px; padding-block: 24px; border-top: 1px solid var(--line); }
+    .event time { color: var(--muted); font: 700 11px monospace; }
+    .event p { margin: 0; font-size: clamp(18px, 2vw, 25px); letter-spacing: -.02em; }
+
+    .footer { padding-block: 36px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; color: var(--muted); font-size: 12px; }
+    .footer a { color: var(--ink); font-weight: 750; border-bottom: 1px solid var(--ink); }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 780px) {
+      .nav { min-height: 72px; }
+      .status { font-size: 9px; letter-spacing: .08em; }
+      .hero { min-height: auto; grid-template-columns: 1fr; padding-block: 64px 88px; }
+      .orbit { width: min(76vw, 340px); margin: 18px auto 0; }
+      .section-head { grid-template-columns: 1fr; gap: 24px; }
+      .statement { margin: 42px 0 0; }
+      .now-card { grid-template-columns: 1fr; }
+      .experiment { grid-template-columns: 40px 1fr auto; gap: 16px; align-items: start; }
+      .experiment p { grid-column: 2 / -1; }
+      .principles { grid-template-columns: 1fr; }
+      .principle { min-height: 220px; }
+      .event { grid-template-columns: 100px 1fr; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="card">
-        <h1>你好，我是子儒宝宝 👋</h1>
-        <p>对 AI 产品、创意表达与技术探索充满好奇。</p>
+  <header class="shell nav">
+    <a class="mark" href="#top" aria-label="返回顶部">ZIRU <small>/ 01</small></a>
+    <div class="status">Currently exploring</div>
+  </header>
 
-        <h2>兴趣爱好</h2>
-        <ul>
-            <li>🤖 AI 产品设计</li>
-            <li>🎮 游戏创意</li>
-            <li>🏃 运动与自我成长</li>
-        </ul>
+  <main id="top">
+    <section class="shell hero">
+      <div>
+        <p class="eyebrow">AI Product Explorer · Ideas → Prototypes</p>
+        <h1>Build small.<br>Think <em>big.</em></h1>
+        <p class="hero-copy">我把模糊的好奇心，变成可以被使用、被验证的小产品。<br><span>不是等待完美答案，而是更快地提出一个真实的问题。</span></p>
+        <a class="hero-link" href="#about">进入实验室 <i>↘</i></a>
+      </div>
+      <div class="orbit" role="img" aria-label="从想法到验证的循环">
+        <span class="orbit-note a">QUESTION / 01</span>
+        <span class="orbit-word">IDEA<br>TEST<br>LEARN</span>
+        <span class="orbit-note b">KEEP MOVING</span>
+      </div>
+    </section>
 
-        <div class="email">
-            📩 Email: Muuuu77mars@gmail.com
+    <section class="section" id="about">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="index">01 / About</span>
+          <h2>不急着定义自己。<br>先持续制造证据。</h2>
         </div>
+        <div class="statement reveal">
+          <p>我是子儒。游戏策划是我的起点，现在我正在探索 AI 产品，以及那些能真正改变人和工具关系的新交互。</p>
+          <p>这里不是完成品陈列柜，而是一张持续更新的工作台：公开问题、过程和偶尔成立的答案。</p>
+        </div>
+        <div class="now-card reveal">
+          <div class="now-label">Current question<br>2026.08</div>
+          <div>
+            <blockquote>如果人与软件之间的距离，只剩下一句话，产品会变成什么？</blockquote>
+            <footer>这个页面就是一次回答：我用口述提出方向，AI 把它变成了正在运行的网站。</footer>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experiments">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="index">02 / Experiments</span>
+          <h2>几个值得继续追问的方向。</h2>
+        </div>
+        <div class="experiments reveal">
+          <article class="experiment">
+            <span class="experiment-no">E / 01</span>
+            <h3>Conversational Home</h3>
+            <p>把个人主页从一次性工程，变成可以通过对话持续修改的数字空间。</p>
+            <span class="tag live">Live</span>
+          </article>
+          <article class="experiment">
+            <span class="experiment-no">E / 02</span>
+            <h3>Low-friction Learning</h3>
+            <p>研究 AI 如何降低“开始学习”的成本，同时保留真正有难度的内容。</p>
+            <span class="tag">Exploring</span>
+          </article>
+          <article class="experiment">
+            <span class="experiment-no">E / 03</span>
+            <h3>Playable Systems</h3>
+            <p>把游戏里的反馈、选择与成长机制，带进更广泛的产品体验。</p>
+            <span class="tag">Question</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="principles">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="index">03 / Principles</span>
+          <h2>我希望自己保留的三种习惯。</h2>
+        </div>
+        <div class="principles reveal">
+          <div class="principle"><b>先让它<br>真实存在。</b><span>Make it real before making it perfect.</span></div>
+          <div class="principle"><b>降低阻力，<br>保留主动性。</b><span>Less friction. More agency.</span></div>
+          <div class="principle"><b>把好奇心<br>变成行动。</b><span>Curiosity should leave evidence.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="changelog">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="index">04 / Changelog</span>
+          <h2>一切都从留下痕迹开始。</h2>
+        </div>
+        <div class="timeline reveal">
+          <div class="event"><time datetime="2026-08">2026 / 08</time><p>通过一次对话，把主页重建成公开的产品实验室。</p></div>
+          <div class="event"><time datetime="2026-02">2026 / 02</time><p>第一个版本上线。一张很简单，但真实存在的个人名片。</p></div>
+          <div class="event"><time datetime="2025-12">2025 / 12</time><p>开始把作品与学习过程放到 GitHub。</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <span>© 2026 Ziru · Built in conversation, improved in public.</span>
+      <a href="https://github.com/Muuuu777" target="_blank" rel="noreferrer">GitHub ↗</a>
     </div>
+  </footer>
+
+  <script>
+    document.addEventListener('pointermove', (event) => {
+      document.body.style.setProperty('--x', `${event.clientX}px`);
+      document.body.style.setProperty('--y', `${event.clientY}px`);
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+  </script>
 </body>
 </html>

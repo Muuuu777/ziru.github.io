@@ -1,0 +1,12 @@
+.DS_Store
+**/.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+
+# 本地文案讨论材料与已经撤回的视觉实验
+/copy-review-prompt.md
+/journey.css
+/assets/journey/

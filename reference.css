@@ -31,3 +31,5 @@
 .reference-copy p:not(.hero-english){font-size:clamp(12px,.95cqw,14px);line-height:1.8;color:#4e5c66;max-width:28em;margin:0}
 @media(max-width:900px){.reference-copy{left:5%;top:130px;width:min(43vw,390px)}.reference-copy h1{font-size:clamp(43px,5vw,55px)}}
 @media(max-width:600px){.reference-copy{left:22px;top:132px;width:calc(100% - 44px);max-width:350px}.reference-copy h1{font-size:clamp(39px,10vw,46px);margin-bottom:15px}.reference-copy .hero-english{max-width:25ch;margin-bottom:13px}.reference-copy p:not(.hero-english){font-size:13px;line-height:1.65;max-width:27ch}.reference-copy p br{display:none}.reference-scroll{top:390px}}
+
+@media(max-width:600px){.reference-copy h1{font-size:clamp(34px,9vw,44px)}}
